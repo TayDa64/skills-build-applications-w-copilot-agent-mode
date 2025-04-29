@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
 from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
-<<<<<<< HEAD
 from django.conf import settings
 from pymongo import MongoClient
 from datetime import timedelta
@@ -14,7 +13,7 @@ class Command(BaseCommand):
         print("Debug: populate_db.py script is being executed")
 
         # Connect to MongoDB
-        client = MongoClient(settings.DATABASES['default'].get('HOST', 'localhost'), settings.DATABASES['default'].get('PORT', 27017))
+        client = MongoClient(settings.DATABASES['default'].get('CLIENT', {}).get('host', 'localhost'), settings.DATABASES['default'].get('CLIENT', {}).get('port', 27017))
         db = client[settings.DATABASES['default']['NAME']]
 
         # Drop existing collections
@@ -35,9 +34,31 @@ class Command(BaseCommand):
         db.users.insert_many(users)
 
         # Add more collections (teams, activities, leaderboard, workouts) as needed
+        teams = [
+            {"_id": ObjectId(), "name": "Team Alpha", "members": [users[0]["_id"], users[1]["_id"]]},
+            {"_id": ObjectId(), "name": "Team Beta", "members": [users[2]["_id"]]},
+        ]
+        db.teams.insert_many(teams)
+
+        activities = [
+            {"_id": ObjectId(), "user": users[0]["_id"], "activity_type": "Running", "duration": 30, "date": "2025-04-29"},
+            {"_id": ObjectId(), "user": users[1]["_id"], "activity_type": "Cycling", "duration": 45, "date": "2025-04-29"},
+        ]
+        db.activity.insert_many(activities)
+
+        leaderboard = [
+            {"_id": ObjectId(), "user": users[0]["_id"], "score": 100},
+            {"_id": ObjectId(), "user": users[1]["_id"], "score": 80},
+        ]
+        db.leaderboard.insert_many(leaderboard)
+
+        workouts = [
+            {"_id": ObjectId(), "name": "Push-ups", "duration": 30},
+            {"_id": ObjectId(), "name": "Sit-ups", "duration": 20},
+        ]
+        db.workouts.insert_many(workouts)
 
         self.stdout.write(self.style.SUCCESS('Successfully populated the database with test data.'))
-=======
 
 class Command(BaseCommand):
     help = 'Populate the octofit_db database with test data'
@@ -70,4 +91,4 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS('Successfully populated the database with test data'))
         except Exception as e:
             self.stderr.write(self.style.ERROR(f'Error populating database: {e}'))
->>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
+#>>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
