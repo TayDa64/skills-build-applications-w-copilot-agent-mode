@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+<<<<<<< HEAD
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User, Team, Activity, Leaderboard, Workout
@@ -14,6 +15,11 @@ def api_root(request, format=None):
         'workouts': request.build_absolute_uri('workouts/'),
     })
 
+=======
+from .models import User, Team, Activity, Leaderboard, Workout
+from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
+
+>>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -32,4 +38,8 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
+<<<<<<< HEAD
     serializer_class = WorkoutSerializer
+=======
+    serializer_class = WorkoutSerializer
+>>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)

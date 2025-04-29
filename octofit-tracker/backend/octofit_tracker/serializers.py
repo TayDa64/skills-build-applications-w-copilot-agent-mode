@@ -24,4 +24,8 @@ class LeaderboardSerializer(serializers.ModelSerializer):
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
+<<<<<<< HEAD
         fields = '__all__'
+=======
+        fields = '__all__'
+>>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
