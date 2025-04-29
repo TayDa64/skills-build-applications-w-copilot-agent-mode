@@ -84,15 +84,14 @@ WSGI_APPLICATION = "octofit_tracker.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# MongoDB database connection
 DATABASES = {
     "default": {
         "ENGINE": "djongo",
-        "NAME": os.getenv("DB_NAME", "octofit_db"),
+        "NAME": "octofit_db",
         "CLIENT": {
-            "host": os.getenv("DB_HOST", "localhost"),
-            "port": int(os.getenv("DB_PORT", 27017)),
-            "username": os.getenv("DB_USER", ""),
-            "password": os.getenv("DB_PASSWORD", ""),
+            "host": "localhost",
+            "port": 27017,
         },
     }
 }
