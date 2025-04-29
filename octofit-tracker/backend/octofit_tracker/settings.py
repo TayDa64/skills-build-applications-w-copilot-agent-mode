@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-sxpned*i*!@hs!##=nt)=fb@pr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'congenial-robot-pwrx4jxpp9c6vjv-8000.app.github.dev']
 
 
 # Application definition
@@ -42,16 +42,15 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    'corsheaders',
     "django.contrib.staticfiles",
-]
-
-INSTALLED_APPS += [
+    "rest_framework",
+    "djongo",
+    "corsheaders",
     "octofit_tracker",
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -88,11 +87,9 @@ WSGI_APPLICATION = "octofit_tracker.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "djongo",
-        "NAME": "octofit_db",
-        "CLIENT": {
-            "host": "localhost",
-            "port": 27017,
-        },
+        "NAME": "monafit_db",
+        "HOST": "localhost",
+        "PORT": 27017,
     }
 }
 
@@ -144,7 +141,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Allow all hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'congenial-robot-pwrx4jxpp9c6vjv-8000.app.github.dev']
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
