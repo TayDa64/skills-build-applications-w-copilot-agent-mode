@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from a .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-sxpned*i*!@hs!##=nt)=fb@pr578ghle$_hvg(2py!yyad1=7"
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-sxpned*i*!@hs!##=nt)=fb@pr578ghle$_hvg(2py!yyad1=7")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
 
 # Application definition
@@ -79,9 +84,15 @@ WSGI_APPLICATION = "octofit_tracker.wsgi.application"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'octofit_db',
+    "default": {
+        "ENGINE": "djongo",
+        "NAME": os.getenv("DB_NAME", "octofit_db"),
+        "CLIENT": {
+            "host": os.getenv("DB_HOST", "localhost"),
+            "port": int(os.getenv("DB_PORT", 27017)),
+            "username": os.getenv("DB_USER", ""),
+            "password": os.getenv("DB_PASSWORD", ""),
+        },
     }
 }
 
@@ -120,7 +131,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -131,3 +145,31 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 # Allow all hosts
 ALLOWED_HOSTS = ['*']
+
+# CORS settings
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # React frontend
+]
+
+# Authentication settings
+AUTH_USER_MODEL = "octofit_tracker.CustomUser"
+
+# Logging configuration
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": os.path.join(BASE_DIR, "debug.log"),
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+}
