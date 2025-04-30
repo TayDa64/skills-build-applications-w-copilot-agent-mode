@@ -1,24 +1,5 @@
-<<<<<<< HEAD
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from . import views
-
-# Create a router and register our viewsets with it.
-router = DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'teams', views.TeamViewSet)
-router.register(r'activity', views.ActivityViewSet)
-router.register(r'leaderboard', views.LeaderboardViewSet)
-router.register(r'workouts', views.WorkoutViewSet)
-
-# The API URLs are now determined automatically by the router.
-urlpatterns = [
-    path('', include(router.urls)),
-    path('api-root/', views.api_root, name='api-root'),
-=======
 """
 URL configuration for octofit_tracker project.
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
 Examples:
@@ -34,9 +15,21 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from . import views
 
+# Create a router and register our viewsets with it.
+router = DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'teams', views.TeamViewSet)
+router.register(r'activity', views.ActivityViewSet)
+router.register(r'leaderboard', views.LeaderboardViewSet)
+router.register(r'workouts', views.WorkoutViewSet)
+
+# The API URLs are now determined automatically by the router.
 urlpatterns = [
-    path("admin/", admin.site.urls),
->>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
+    path('admin/', admin.site.urls),
+    path('', include(router.urls)),
+    path('api-root/', views.api_root, name='api-root'),
 ]

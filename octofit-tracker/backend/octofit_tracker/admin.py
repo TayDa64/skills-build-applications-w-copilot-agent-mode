@@ -19,4 +19,4 @@ class LeaderboardAdmin(admin.ModelAdmin):
 
 @admin.register(Workout)
 class WorkoutAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'duration')
+    list_display = ('workout_type', 'duration', 'date')

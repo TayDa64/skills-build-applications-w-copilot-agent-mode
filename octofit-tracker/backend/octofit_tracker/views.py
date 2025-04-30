@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-<<<<<<< HEAD
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User, Team, Activity, Leaderboard, Workout
@@ -7,19 +6,15 @@ from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, Lea
 
 @api_view(['GET'])
 def api_root(request, format=None):
+    base_url = 'https://miniature-potato-4jqrvq7jj6f7vrx-8000.app.github.dev/'
     return Response({
-        'users': request.build_absolute_uri('users/'),
-        'teams': request.build_absolute_uri('teams/'),
-        'activity': request.build_absolute_uri('activity/'),
-        'leaderboard': request.build_absolute_uri('leaderboard/'),
-        'workouts': request.build_absolute_uri('workouts/'),
+        'users': base_url + 'api/users/?format=api',
+        'teams': base_url + 'api/teams/?format=api',
+        'activities': base_url + 'api/activities/?format=api',
+        'leaderboard': base_url + 'api/leaderboard/?format=api',
+        'workouts': base_url + 'api/workouts/?format=api'
     })
 
-=======
-from .models import User, Team, Activity, Leaderboard, Workout
-from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, LeaderboardSerializer, WorkoutSerializer
-
->>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -38,8 +33,8 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
 
 class WorkoutViewSet(viewsets.ModelViewSet):
     queryset = Workout.objects.all()
-<<<<<<< HEAD
     serializer_class = WorkoutSerializer
-=======
-    serializer_class = WorkoutSerializer
->>>>>>> 2d7d7f7 (Align project structure with recommended setup and update dependencies)
+
+    def get_queryset(self):
+        # Customize the queryset if needed
+        return self.queryset

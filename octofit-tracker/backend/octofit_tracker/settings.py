@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 from corsheaders.defaults import default_headers, default_methods
 
 # Load environment variables from a .env file
@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-sxpned*i*!@hs!##=nt)=fb@pr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'congenial-robot-pwrx4jxpp9c6vjv-8000.app.github.dev']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'miniature-potato-4jqrvq7jj6f7vrx-8000.app.github.dev']
 
 
 # Application definition
@@ -141,7 +141,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Allow all hosts
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'congenial-robot-pwrx4jxpp9c6vjv-8000.app.github.dev']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'miniature-potato-4jqrvq7jj6f7vrx-8000.app.github.dev']
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = [

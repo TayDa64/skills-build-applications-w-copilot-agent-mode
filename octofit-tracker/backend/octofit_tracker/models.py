@@ -1,6 +1,14 @@
+from django.contrib.auth.models import AbstractUser
 from djongo import models
 
+class CustomUser(AbstractUser):
+    age = models.PositiveIntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.username
+
 class User(models.Model):
+    _id = models.ObjectIdField(primary_key=True)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255)
     age = models.IntegerField()
@@ -11,7 +19,7 @@ class User(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
-    members = models.ArrayField(model_container=User)
+    members = models.ManyToManyField(User)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
